@@ -42,7 +42,15 @@ import pandas as pd
 import openpyxl
 from openpyxl.styles import PatternFill, Font, Alignment
 from openpyxl.utils import get_column_letter
-import math
+
+# Rubric policy switch: if a near-accurate case is meaning-ambiguous, force score 2.
+AMBIGUOUS_TO_2 = True
+
+# Borderline band for ambiguity handling (applied to would-be score-3 cases).
+AMBIGUOUS_EDIT_MIN = 2
+AMBIGUOUS_EDIT_MAX = 4
+AMBIGUOUS_OVERLAP_MIN = 0.60
+AMBIGUOUS_OVERLAP_MAX = 0.78
 
 
 # ─────────────────────────────────────────────
@@ -223,11 +231,27 @@ def morph_close(w1: str, w2: str, threshold: float = 0.72) -> bool:
     return char_similarity(w1, w2) >= threshold
 
 
+def is_ambiguous_meaning_case(edit_dist: int, overlap: float) -> bool:
+    """
+    Borderline meaning-preservation region for rubric tie-break:
+    if meaning change is ambiguous, score 2.
+    """
+    return (
+        AMBIGUOUS_TO_2
+        and AMBIGUOUS_EDIT_MIN <= edit_dist <= AMBIGUOUS_EDIT_MAX
+        and AMBIGUOUS_OVERLAP_MIN <= overlap <= AMBIGUOUS_OVERLAP_MAX
+    )
+
+
 # ─────────────────────────────────────────────
 #  CORE RUBRIC SCORER
 # ─────────────────────────────────────────────
 
-def score_utterance(target_raw: str, learner_raw: str) -> tuple[int, str]:
+def score_utterance(
+    target_raw: str,
+    learner_raw: str,
+    return_meta: bool = False,
+) -> tuple[int, str] | tuple[int, str, bool]:
     """
     Apply the meaning-based EIT rubric.
 
@@ -239,22 +263,30 @@ def score_utterance(target_raw: str, learner_raw: str) -> tuple[int, str]:
       Score 1: edit_dist 4–11, content overlap < 0.30
       Score 0: edit_dist 4–12, no content overlap; wrong language; no response
 
-    Returns (score: int, rationale: str)
+    Returns:
+      - (score: int, rationale: str) when return_meta=False
+      - (score: int, rationale: str, ambiguous_downgraded: bool) when return_meta=True
     """
+    ambiguous_downgraded = False
+
+    def _ret(score: int, rationale: str):
+        if return_meta:
+            return score, rationale, ambiguous_downgraded
+        return score, rationale
 
     # ── Score 0 edge cases ──────────────────────────────────────────────
     if is_wrong_language(learner_raw):
-        return 0, "Response in wrong language [en inglés]"
+        return _ret(0, "Response in wrong language [en inglés]")
 
     if is_no_response(learner_raw):
-        return 0, "No response / empty transcription"
+        return _ret(0, "No response / empty transcription")
 
     # ── Normalise ────────────────────────────────────────────────────────
     target_tokens  = tokenise(target_raw,  is_stimulus=True)
     learner_tokens = tokenise(learner_raw, is_stimulus=False)
 
     if not target_tokens:
-        return 0, "Target sentence is empty"
+        return _ret(0, "Target sentence is empty")
 
     # ── Metrics ──────────────────────────────────────────────────────────
     n_target  = len(target_tokens)
@@ -269,37 +301,37 @@ def score_utterance(target_raw: str, learner_raw: str) -> tuple[int, str]:
     # Key boundary: ALL score-4 cases have overlap ≥ 0.67.
 
     if edit_dist == 0:
-        return 4, "Exact reproduction after normalisation"
+        return _ret(4, "Exact reproduction after normalisation")
 
     if edit_dist == 1:
         # One-word deviation — check nature of the difference
         if overlap >= 0.67:
-            return 4, (
+            return _ret(4, (
                 f"1-word deviation, full meaning preserved "
                 f"(edit=1, content_overlap={overlap:.2f})"
-            )
+            ))
 
     if edit_dist == 2 and overlap >= 0.80:
         # 2-word deviation — could be repetition artefact or minor addition
         # Real score-4 examples: repetition of phrase, extra preposition
-        return 4, (
+        return _ret(4, (
             f"2-word deviation consistent with disfluency/repetition artefact "
             f"(edit=2, content_overlap={overlap:.2f})"
-        )
+        ))
 
     if edit_dist == 3 and overlap >= 0.85:
         # Rare: score-4 with ed=3 exists (e.g. word-form collision)
-        return 4, (
+        return _ret(4, (
             f"3-word deviation, near-complete content preserved "
             f"(edit=3, content_overlap={overlap:.2f})"
-        )
+        ))
 
     # ── Score 3: near-accurate ───────────────────────────────────────────
     # Meaning preserved but with a minor grammatical/morphological deviation.
     # Calibrated boundary: edit_dist 1–3, content_overlap ≥ 0.65
 
     if only_ser_estar_swap(target_tokens, learner_tokens):
-        return 3, "Ser↔estar substitution; core meaning preserved"
+        return _ret(3, "Ser↔estar substitution; core meaning preserved")
 
     if edit_dist == 1 and overlap >= 0.50:
         # Below the score-4 overlap threshold but still near-accurate
@@ -309,57 +341,84 @@ def score_utterance(target_raw: str, learner_raw: str) -> tuple[int, str]:
             if diffs:
                 tw, lw = diffs[0]
                 if morph_close(tw, lw):
-                    return 3, f"Morphological variant: '{tw}'→'{lw}'; meaning preserved"
-                return 3, f"Single word substitution ('{tw}'→'{lw}'); meaning largely preserved"
-        return 3, f"1-word deviation; meaning largely preserved (overlap={overlap:.2f})"
+                    return _ret(3, f"Morphological variant: '{tw}'→'{lw}'; meaning preserved")
+                return _ret(3, f"Single word substitution ('{tw}'→'{lw}'); meaning largely preserved")
+        return _ret(3, f"1-word deviation; meaning largely preserved (overlap={overlap:.2f})")
 
     if edit_dist == 2 and overlap >= 0.65:
-        return 3, (
+        if is_ambiguous_meaning_case(edit_dist, overlap):
+            ambiguous_downgraded = True
+            return _ret(
+                2,
+                (
+                    f"Ambiguous meaning-change boundary; downgraded to 2 "
+                    f"(edit={edit_dist}, content_overlap={overlap:.2f})"
+                ),
+            )
+        return _ret(3, (
             f"Minor deviation (edit=2, content_overlap={overlap:.2f}); "
             f"meaning essentially preserved"
-        )
+        ))
 
     if edit_dist == 3 and overlap >= 0.70:
-        return 3, (
+        if is_ambiguous_meaning_case(edit_dist, overlap):
+            ambiguous_downgraded = True
+            return _ret(
+                2,
+                (
+                    f"Ambiguous meaning-change boundary; downgraded to 2 "
+                    f"(edit={edit_dist}, content_overlap={overlap:.2f})"
+                ),
+            )
+        return _ret(3, (
             f"Moderate deviation (edit=3, content_overlap={overlap:.2f}); "
             f"meaning preserved"
-        )
+        ))
 
     if edit_dist <= 4 and overlap >= 0.75:
-        return 3, (
+        if is_ambiguous_meaning_case(edit_dist, overlap):
+            ambiguous_downgraded = True
+            return _ret(
+                2,
+                (
+                    f"Ambiguous meaning-change boundary; downgraded to 2 "
+                    f"(edit={edit_dist}, content_overlap={overlap:.2f})"
+                ),
+            )
+        return _ret(3, (
             f"Structural deviation (edit={edit_dist}), high content overlap "
             f"({overlap:.2f}); meaning preserved"
-        )
+        ))
 
     # ── Score 2: partial meaning ─────────────────────────────────────────
     # Noticeable deviation but some core content retained.
     # Calibrated: content_overlap typically 0.30–0.70, edit_dist 2–7
 
     if overlap >= 0.35 and n_learner >= max(2, n_target * 0.30):
-        return 2, (
+        return _ret(2, (
             f"Partial meaning (content_overlap={overlap:.2f}, edit={edit_dist}, "
             f"n_target={n_target}, n_learner={n_learner})"
-        )
+        ))
 
     # Short response with some overlap (e.g. "son muy grandes" → score 2)
     if overlap >= 0.25 and n_learner >= 2:
-        return 2, (
+        return _ret(2, (
             f"Partial response — some content preserved "
             f"(content_overlap={overlap:.2f}, n_learner={n_learner})"
-        )
+        ))
 
     # ── Score 1: minimal meaning ─────────────────────────────────────────
     # Only isolated recognisable fragments.
     if overlap >= 0.10 or (n_learner >= 1 and overlap > 0):
-        return 1, (
+        return _ret(1, (
             f"Minimal meaning — isolated fragments only "
             f"(content_overlap={overlap:.2f}, n_learner={n_learner})"
-        )
+        ))
 
     # ── Score 0: no meaning ───────────────────────────────────────────────
-    return 0, (
+    return _ret(0, (
         f"No meaning preserved (content_overlap={overlap:.2f}, edit={edit_dist})"
-    )
+    ))
 
 
 # ─────────────────────────────────────────────
@@ -415,19 +474,22 @@ def load_dataset(filepath: str) -> pd.DataFrame:
 def run_scoring_pipeline(filepath: str) -> pd.DataFrame:
     """
     Full pipeline: load → score → return enriched DataFrame.
-    Adds columns: auto_score, rationale, has_human_score, agreement, score_diff
+    Adds columns:
+      auto_score, rationale, ambiguous_downgraded,
+      has_human_score, agreement, score_diff
     """
     print(f"Loading dataset from: {filepath}")
     df = load_dataset(filepath)
     print(f"  → {len(df)} utterances from {df['participant_id'].nunique()} participants")
 
     # Apply scorer row-by-row (deterministic, no randomness)
-    scores_and_rationale = df.apply(
-        lambda r: score_utterance(r['stimulus'], r['transcription']),
+    score_rows = df.apply(
+        lambda r: score_utterance(r['stimulus'], r['transcription'], return_meta=True),
         axis=1
     )
-    df['auto_score'] = scores_and_rationale.apply(lambda x: x[0])
-    df['rationale']  = scores_and_rationale.apply(lambda x: x[1])
+    df['auto_score'] = score_rows.apply(lambda x: x[0])
+    df['rationale'] = score_rows.apply(lambda x: x[1])
+    df['ambiguous_downgraded'] = score_rows.apply(lambda x: x[2])
 
     # Evaluation vs. human rater (where available)
     mask = df['human_score'].notna()
@@ -481,6 +543,7 @@ def compute_metrics(df: pd.DataFrame) -> dict:
         'max_participant_deviation':   int(max_dev),
         'pct_participants_within10':   round(pct_within10, 2),
         'n_participants':              len(deviations),
+        'n_ambiguous_downgraded':      int(df.get('ambiguous_downgraded', pd.Series(dtype=bool)).sum()),
         'auto_score_distribution':     auto_dist.to_dict(),
         'human_score_distribution':    human_dist.to_dict(),
         'confusion_summary':           pd.crosstab(
@@ -678,6 +741,15 @@ if __name__ == '__main__':
     print("\nWriting output workbook…")
     write_output_workbook(df, str(source_path), str(output_xlsx))
     df[['participant_id', 'version', 'sentence_id', 'stimulus',
-        'transcription', 'human_score', 'auto_score', 'rationale']].to_csv(output_csv, index=False)
+        'transcription', 'human_score', 'auto_score', 'ambiguous_downgraded', 'rationale']].to_csv(output_csv, index=False)
     print(f"  → CSV saved: {output_csv}")
+
+    # Explicit log of rubric ambiguity downgrades (3 → 2 policy).
+    downgrade_log = output_csv.with_name('AutoEIT_ambiguous_downgrades.csv')
+    downgraded = df[df['ambiguous_downgraded']].copy()
+    downgraded[['participant_id', 'version', 'sentence_id', 'stimulus',
+                'transcription', 'human_score', 'auto_score', 'rationale']].to_csv(
+        downgrade_log, index=False
+    )
+    print(f"  → Ambiguity downgrade log: {downgrade_log} ({len(downgraded)} rows)")
     print("\n✓ AutoEIT scoring complete.")
