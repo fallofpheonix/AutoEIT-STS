@@ -119,7 +119,7 @@ def build_parser() -> argparse.ArgumentParser:
         "--input-xlsx",
         type=Path,
         required=True,
-        help="Path to a scored transcription workbook (must contain human scores).",
+        help="Path to a transcription workbook containing human scores to evaluate against.",
     )
     parser.add_argument(
         "--exact-threshold",

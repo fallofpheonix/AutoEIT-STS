@@ -83,13 +83,16 @@ with tempfile.NamedTemporaryFile(suffix=".xlsx", delete=False) as tmp:
     tmp.write(uploaded.read())
     tmp_path = Path(tmp.name)
 
-# --- Run pipeline ------------------------------------------------------------
-with st.spinner("Scoring utterances…"):
-    try:
-        frame = run_scoring_pipeline(tmp_path)
-    except ValueError as exc:
-        st.error(f"Could not process workbook: {exc}")
-        st.stop()
+# --- Run pipeline (clean up temp file afterwards) ----------------------------
+try:
+    with st.spinner("Scoring utterances…"):
+        try:
+            frame = run_scoring_pipeline(tmp_path)
+        except ValueError as exc:
+            st.error(f"Could not process workbook: {exc}")
+            st.stop()
+finally:
+    tmp_path.unlink(missing_ok=True)
 
 metrics = compute_metrics(frame)
 

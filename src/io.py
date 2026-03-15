@@ -95,28 +95,32 @@ def validate_workbook_schema(filepath: str | Path) -> list[str]:
         errors.append(f"Cannot open workbook: {exc}")
         return errors
 
-    scoring_sheets = [name for name in wb.sheetnames if _is_scoring_sheet(wb[name])]
-    if not scoring_sheets:
-        errors.append(
-            "Workbook does not contain any scoring sheets with "
-            "Sentence/Stimulus headers in columns A/B of row 1."
-        )
-        return errors
+    try:
+        scoring_sheets = [name for name in wb.sheetnames if _is_scoring_sheet(wb[name])]
+        if not scoring_sheets:
+            errors.append(
+                "Workbook does not contain any scoring sheets with "
+                "Sentence/Stimulus headers in columns A/B of row 1."
+            )
+            return errors
 
-    for sheet_name in scoring_sheets:
-        ws = wb[sheet_name]
-        has_data = False
-        for row in ws.iter_rows(min_row=2, values_only=True):
-            if isinstance(row[0], int):
-                has_data = True
-                if len(row) < 3:
-                    errors.append(
-                        f"Sheet '{sheet_name}': row {row[0]} has fewer than 3 columns "
-                        "(expected Sentence, Stimulus, Transcription)."
-                    )
-                break
-        if not has_data:
-            errors.append(f"Sheet '{sheet_name}': no sentence rows found (expected integer in column A).")
+        for sheet_name in scoring_sheets:
+            ws = wb[sheet_name]
+            has_data = False
+            for row_index, row in enumerate(ws.iter_rows(min_row=2, values_only=True), start=2):
+                if isinstance(row[0], int):
+                    has_data = True
+                    if len(row) < 3:
+                        errors.append(
+                            f"Sheet '{sheet_name}': row {row_index} (sentence id={row[0]}) "
+                            "has fewer than 3 columns "
+                            "(expected Sentence, Stimulus, Transcription)."
+                        )
+                    break
+            if not has_data:
+                errors.append(f"Sheet '{sheet_name}': no sentence rows found (expected integer in column A).")
+    finally:
+        wb.close()
 
     return errors
 

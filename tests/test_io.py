@@ -28,14 +28,16 @@ from src.io import (
 def _make_workbook(sheets: dict[str, list[tuple]]) -> Path:
     """Write a temporary workbook with the given sheets and return its path."""
     tmp = tempfile.NamedTemporaryFile(suffix=".xlsx", delete=False)
+    tmp_path = Path(tmp.name)
+    tmp.close()  # close handle before openpyxl writes to the same path
     wb = openpyxl.Workbook()
     wb.remove(wb.active)  # remove default sheet
     for sheet_name, rows in sheets.items():
         ws = wb.create_sheet(sheet_name)
         for row in rows:
             ws.append(row)
-    wb.save(tmp.name)
-    return Path(tmp.name)
+    wb.save(tmp_path)
+    return tmp_path
 
 
 _VALID_SHEET = [
