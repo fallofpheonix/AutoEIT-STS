@@ -8,11 +8,15 @@ The two public functions here cover the common use-cases:
 from __future__ import annotations
 
 from pathlib import Path
+from typing import Any, cast
 
 import pandas as pd
 
 from autoeit.core.rubric import score_utterance
 from autoeit.services.workbook import load_workbook, save_workbook, save_csv_outputs
+from autoeit.utils.paths import default_downgrade_path
+
+MetricMap = dict[str, Any]
 
 
 def run_pipeline(filepath: str | Path) -> pd.DataFrame:
@@ -24,16 +28,21 @@ def run_pipeline(filepath: str | Path) -> pd.DataFrame:
     """
     frame = load_workbook(filepath)
 
-    results = frame.apply(
-        lambda row: score_utterance(
-            row["stimulus"], row["transcription"], return_meta=True
-        ),
-        axis=1,
-    )
+    scored_rows: list[tuple[int, str, bool]] = []
+    for row in frame.itertuples(index=False):
+        result = cast(
+            tuple[int, str, bool],
+            score_utterance(
+                getattr(row, "stimulus"),
+                getattr(row, "transcription"),
+                return_meta=True,
+            ),
+        )
+        scored_rows.append(result)
 
-    frame["auto_score"] = results.apply(lambda r: r[0])
-    frame["rationale"] = results.apply(lambda r: r[1])
-    frame["ambiguous_downgraded"] = results.apply(lambda r: r[2])
+    frame["auto_score"] = [row[0] for row in scored_rows]
+    frame["rationale"] = [row[1] for row in scored_rows]
+    frame["ambiguous_downgraded"] = [row[2] for row in scored_rows]
     frame["has_human_score"] = frame["human_score"].notna()
 
     rated = frame["has_human_score"]
@@ -48,7 +57,7 @@ def run_pipeline(filepath: str | Path) -> pd.DataFrame:
     return frame
 
 
-def summarize_agreement(frame: pd.DataFrame) -> dict:
+def summarize_agreement(frame: pd.DataFrame) -> MetricMap:
     """Compute inter-rater agreement metrics for rows that have human scores.
 
     Returns an empty dict if there are no rated rows.
@@ -90,7 +99,7 @@ def score_and_export(
     output_xlsx: str | Path,
     output_csv: str | Path,
     downgrades_csv: str | Path | None = None,
-) -> tuple[pd.DataFrame, dict, Path, Path, Path]:
+) -> tuple[pd.DataFrame, MetricMap, Path, Path, Path]:
     """Run the full pipeline and write all outputs.
 
     Returns (frame, metrics, xlsx_path, csv_path, downgrades_path).
@@ -99,7 +108,7 @@ def score_and_export(
     metrics = summarize_agreement(frame)
 
     xlsx_path = save_workbook(frame, source_path=source_path, out_path=output_xlsx)
-    dl_path = downgrades_csv or Path(output_csv).with_name("AutoEIT_ambiguous_downgrades.csv")
+    dl_path = downgrades_csv or default_downgrade_path(output_csv)
     csv_path, dl_path = save_csv_outputs(
         frame, scores_path=output_csv, downgrades_path=dl_path
     )

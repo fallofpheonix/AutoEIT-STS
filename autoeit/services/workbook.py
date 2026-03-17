@@ -8,11 +8,15 @@ from __future__ import annotations
 import re
 from pathlib import Path
 from shutil import copyfile
+from typing import Any
 
 import openpyxl
+from openpyxl.worksheet.worksheet import Worksheet
 from openpyxl.styles import Alignment, Font, PatternFill
 from openpyxl.utils import get_column_letter
 import pandas as pd
+
+from autoeit.utils.paths import ensure_parent_dir
 
 # --------------------------------------------------------------------------
 # Styling constants for the output workbook
@@ -51,14 +55,14 @@ def _parse_sheet_name(name: str) -> tuple[str, str]:
     return name, ""
 
 
-def _is_scoring_sheet(ws) -> bool:
+def _is_scoring_sheet(ws: Worksheet) -> bool:
     return (
         ws.cell(row=1, column=1).value == "Sentence"
         and ws.cell(row=1, column=2).value == "Stimulus"
     )
 
 
-def _last_header_column(ws) -> int:
+def _last_header_column(ws: Worksheet) -> int:
     for col in range(ws.max_column, 0, -1):
         v = ws.cell(row=1, column=col).value
         if v is not None and str(v).strip():
@@ -123,7 +127,7 @@ def load_workbook(filepath: str | Path) -> pd.DataFrame:
     Raises ValueError if no scoring sheets are found or if they're empty.
     """
     wb = openpyxl.load_workbook(filepath, data_only=True)
-    records: list[dict] = []
+    records: list[dict[str, object]] = []
     found_any = False
 
     for sheet_name in wb.sheetnames:
@@ -175,8 +179,7 @@ def save_workbook(
     Copies the original workbook, then appends AutoEIT_Score and Rationale
     columns to every scoring sheet plus a consolidated AutoEIT_Summary tab.
     """
-    out = Path(out_path)
-    out.parent.mkdir(parents=True, exist_ok=True)
+    out = ensure_parent_dir(out_path)
     copyfile(source_path, out)
 
     wb = openpyxl.load_workbook(out)
@@ -228,7 +231,7 @@ def save_workbook(
         diff: int | str = ""
         if pd.notna(row.get("human_score")):
             diff = int(row["auto_score"] - row["human_score"])
-        vals = [
+        vals: list[Any] = [
             row["sheet_name"], row["participant_id"], row["version"],
             int(row["sentence_id"]), row["stimulus"], row["transcription"],
             int(row["human_score"]) if pd.notna(row["human_score"]) else "",
@@ -253,10 +256,8 @@ def save_csv_outputs(
     downgrades_path: str | Path,
 ) -> tuple[Path, Path]:
     """Write the main scores CSV and an audit log of ambiguous downgrades."""
-    sp = Path(scores_path)
-    dp = Path(downgrades_path)
-    sp.parent.mkdir(parents=True, exist_ok=True)
-    dp.parent.mkdir(parents=True, exist_ok=True)
+    sp = ensure_parent_dir(scores_path)
+    dp = ensure_parent_dir(downgrades_path)
 
     frame[[
         "sheet_name", "participant_id", "version", "sentence_id",
