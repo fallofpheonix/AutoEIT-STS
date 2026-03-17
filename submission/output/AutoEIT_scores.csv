@@ -1,0 +1,121 @@
+sheet_name,participant_id,version,sentence_id,stimulus,transcription,human_score,auto_score,ambiguous_downgraded,rationale
+38001-1A,38001,1A,1,Quiero cortarme el pelo (7),Quiero cortarme el pelo,,4,False,Exact reproduction after normalization
+38001-1A,38001,1A,2,El libro está en la mesa (7),El libro está en la mesa,,4,False,Exact reproduction after normalization
+38001-1A,38001,1A,3,El carro lo tiene Pedro (8),El carro lo tiene Pedro,,4,False,Exact reproduction after normalization
+38001-1A,38001,1A,4,El se ducha cada mañana (9),El se ducha cada mañana,,4,False,Exact reproduction after normalization
+38001-1A,38001,1A,5,¿Qué dice usted que va a hacer hoy? (9),Que dices ustedes se que van a hacer hoy?,,2,False,"Partial content retained (ed=4, ov=0.50)"
+38001-1A,38001,1A,6,Dudo que sepa manejar muy bien (10),Dudo que sepa manajar bien,,3,False,"Near-accurate, high content retention (ov=0.75)"
+38001-1A,38001,1A,7,Las calles de esta ciudad son muy anchas (11),Las calles de esta cuidad son muy anchas,,3,False,"Single deviation, meaning preserved (ov=0.67)"
+38001-1A,38001,1A,8,Puede que llueva mañana todo el día (12),Puede que lleva mañana todo el día,,4,False,"Single-token deviation, meaning intact (ov=0.80)"
+38001-1A,38001,1A,9,Las casas son muy bonitas pero caras (12),Las casas son muy bonitas pero muy cadas,,2,True,"Ambiguous 2/3 boundary — conservatively scored 2 (ed=2, ov=0.67)"
+38001-1A,38001,1A,10,Me gustan las películas que acaban bien (12),Me gustan las peliculas que acaban bien,,4,False,Exact reproduction after normalization
+38001-1A,38001,1A,11,El chico con el que yo salgo es español (13),El chico con yo salgo ...um.. está bien,,2,False,"Partial content retained (ed=5, ov=0.67)"
+38001-1A,38001,1A,12,Después de cenar me fui a dormir tranquilo (13),Despues de cenar me fui a dormir tranquilo,,4,False,Exact reproduction after normalization
+38001-1A,38001,1A,13,Quiero una casa en la que vivan mis animales (14),Quiero una casa que vivan los animales,,4,False,"Three-token deviation, near-complete content (ov=1.00)"
+38001-1A,38001,1A,14,A nosotros nos fascinan las fiestas grandiosas (14),A nosotros ..nos fascina los fiestas grandiosos,,2,False,"Partial response, some content present (ov=0.33)"
+38001-1A,38001,1A,15,Ella sólo bebe cerveza y no come nada (15),Ella solo bebe cerveza y no come nada,,4,False,Exact reproduction after normalization
+38001-1A,38001,1A,16,Me gustaría que el precio de las casas bajara (15),Me gustaría que las precios de las casas bajaron,,2,False,"Partial content retained (ed=3, ov=0.50)"
+38001-1A,38001,1A,17,Cruza a la derecha y después sigue todo recto (15),Cruza a la derecha y sigue a la izquierda,,2,False,"Partial content retained (ed=4, ov=0.50)"
+38001-1A,38001,1A,18,Ella ha terminado de pintar su apartamento (15),Ella ha terminado pintando su apartamento,,2,True,"Ambiguous 2/3 boundary — conservatively scored 2 (ed=2, ov=0.67)"
+38001-1A,38001,1A,19,Me gustaría que empezara a hacer más calor pronto (15),Me gustaría se .. más calor,,2,False,"Partial content retained (ed=5, ov=0.40)"
+38001-1A,38001,1A,20,El niño al que se le murió el gato está triste (16),El niño que se murió su gato es triste,,3,False,"High content retention despite structural deviation (ed=4, ov=1.00)"
+38001-1A,38001,1A,21,Una amiga mía cuida a los niños de mi vecino (16),una amiga de mio cuida su... niños de vecino,,2,False,"Partial content retained (ed=5, ov=0.80)"
+38001-1A,38001,1A,22,El gato que era negro fue perseguido por el perro (16),El gato que era negro era perseguido de(l) perro,,4,False,"Three-token deviation, near-complete content (ov=1.00)"
+38001-1A,38001,1A,23,Antes de poder salir él tiene que limpiar su cuarto (16),Antes de salir el tiene que limpiar su cuarto,,4,False,"Single-token deviation, meaning intact (ov=0.83)"
+38001-1A,38001,1A,24,La cantidad de personas que fuman ha disminuido (17),La cantidad de personas que fuman ha..desmenido,,3,False,"Near-accurate, high content retention (ov=0.75)"
+38001-1A,38001,1A,25,Después de llegar a casa del trabajo tomé la cena (17),Despues de llegar a casa del trabajo...se...meh,,2,False,"Partial content retained (ed=4, ov=0.50)"
+38001-1A,38001,1A,26,El ladrón al que atrapó la policía era famoso (17),El ladrón que atrapó la policia era famoso,,4,False,"Single-token deviation, meaning intact (ov=1.00)"
+38001-1A,38001,1A,27,Le pedí a un amigo que me ayudara con la tarea (17),Le pedí a un amigo que me ayudara con la tarea,,4,False,Exact reproduction after normalization
+38001-1A,38001,1A,28,El examen no fue tan difícil como me habían dicho (17),El examen no fue tan dificil como me decían,,2,True,"Ambiguous 2/3 boundary — conservatively scored 2 (ed=2, ov=0.60)"
+38001-1A,38001,1A,29,¿Serías tan amable de darme el libro que está en la mesa? (17),Serías tan amable pa'- darme el libro que está en la mesa?,,4,False,"Single-token deviation, meaning intact (ov=1.00)"
+38001-1A,38001,1A,30,Hay mucha gente que no toma nada para el desayuno (17),Hay mucha genta que no to- toma nada para el desayuno.,,4,False,Two-token deviation consistent with disfluency (ov=0.80)
+38002-2A,38002,2A,1,Quiero cortarme el pelo (7),Quiero cortarme el pelo,,4,False,Exact reproduction after normalization
+38002-2A,38002,2A,2,El libro está en la mesa (7),El libro está en la mesa.,,4,False,Exact reproduction after normalization
+38002-2A,38002,2A,3,El carro lo tiene Pedro (8),El carro tiene pelo.,,2,True,"Ambiguous 2/3 boundary — conservatively scored 2 (ed=2, ov=0.67)"
+38002-2A,38002,2A,4,El se ducha cada mañana (9),él se ducha cada mañana,,4,False,Exact reproduction after normalization
+38002-2A,38002,2A,5,¿Qué dice usted que va a hacer hoy? (9),en que ustedes x uf x hacer hoy?,,2,False,"Partial content retained (ed=6, ov=0.50)"
+38002-2A,38002,2A,6,Dudo que sepa manejar muy bien (10),dudo/tu no? sepiar exx muy bien,,2,False,"Partial response, some content present (ov=0.25)"
+38002-2A,38002,2A,7,Las calles de esta ciudad son muy anchas (11),La calles estén xxxx muy anchas.,,2,False,"Partial content retained (ed=5, ov=0.67)"
+38002-2A,38002,2A,8,Puede que llueva mañana todo el día (12),Puede que mañana todo la día,,4,False,Two-token deviation consistent with disfluency (ov=0.80)
+38002-2A,38002,2A,9,Las casas son muy bonitas pero caras (12),Las casas muy bonitos pero ... casas,,2,False,"Partial response, some content present (ov=0.33)"
+38002-2A,38002,2A,10,Me gustan las películas que acaban bien (12),Me gustan las películas campan bien,,3,False,"Near-accurate, high content retention (ov=0.75)"
+38002-2A,38002,2A,11,El chico con el que yo salgo es español (13),el chico con ... español,,2,False,"Partial content retained (ed=5, ov=0.67)"
+38002-2A,38002,2A,12,Después de cenar me fui a dormir tranquilo (13),después de finar ... él dormir xxx,,2,False,"Partial content retained (ed=5, ov=0.40)"
+38002-2A,38002,2A,13,Quiero una casa en la que vivan mis animales (14),Quiere una casa con animales,,2,False,"Partial content retained (ed=6, ov=0.50)"
+38002-2A,38002,2A,14,A nosotros nos fascinan las fiestas grandiosas (14),a nosotros fana-xxx fiestas grandinosas,,2,False,"Partial response, some content present (ov=0.33)"
+38002-2A,38002,2A,15,Ella sólo bebe cerveza y no come nada (15),Ella xxx no beber querer,,0,False,"No meaning preserved (ed=6, ov=0.00)"
+38002-2A,38002,2A,16,Me gustaría que el precio de las casas bajara (15),Me gusta el casa xxx...,,0,False,"No meaning preserved (ed=7, ov=0.00)"
+38002-2A,38002,2A,17,Cruza a la derecha y después sigue todo recto (15),en quises a la derecha xxx...,,1,False,Minimal/fragmentary meaning only (ov=0.17)
+38002-2A,38002,2A,18,Ella ha terminado de pintar su apartamento (15),Ella tiene termino xx apartamento,,2,False,"Partial response, some content present (ov=0.33)"
+38002-2A,38002,2A,19,Me gustaría que empezara a hacer más calor pronto (15),Me gusta que d-crxxx calor pranto,,1,False,Minimal/fragmentary meaning only (ov=0.20)
+38002-2A,38002,2A,20,El niño al que se le murió el gato está triste (16),El niño se murió el gato y triste,,3,False,"High content retention despite structural deviation (ed=4, ov=1.00)"
+38002-2A,38002,2A,21,Una amiga mía cuida a los niños de mi vecino (16),Una amigo que niña ha cuidado,,0,False,"No meaning preserved (ed=9, ov=0.00)"
+38002-2A,38002,2A,22,El gato que era negro fue perseguido por el perro (16),El gato negro se fuera el perro son,,2,False,"Partial content retained (ed=6, ov=0.75)"
+38002-2A,38002,2A,23,Antes de poder salir él tiene que limpiar su cuarto (16),Antes de salir limpio.. el caso,,2,False,"Partial response, some content present (ov=0.33)"
+38002-2A,38002,2A,24,La cantidad de personas que fuman ha disminuido (17),la cantidad de las personas fe-xxx fumar,,2,False,"Partial content retained (ed=5, ov=0.50)"
+38002-2A,38002,2A,25,Después de llegar a casa del trabajo tomé la cena (17),Después de llegar la casa pone cena,,2,False,"Partial content retained (ed=5, ov=0.67)"
+38002-2A,38002,2A,26,El ladrón al que atrapó la policía era famoso (17),El xxx la policía es famoso,,2,False,"Partial content retained (ed=5, ov=0.50)"
+38002-2A,38002,2A,27,Le pedí a un amigo que me ayudara con la tarea (17),Le pedí un amigo con ayuda con mí tarea,,2,False,"Partial content retained (ed=5, ov=0.75)"
+38002-2A,38002,2A,28,El examen no fue tan difícil como me habían dicho (17),El examen no es difícil cuando me xxx...,,2,False,"Partial content retained (ed=5, ov=0.40)"
+38002-2A,38002,2A,29,¿Serías tan amable de darme el libro que está en la mesa? (17),El libro están en la mesa.,,2,False,"Partial response, some content present (ov=0.33)"
+38002-2A,38002,2A,30,Hay mucha gente que no toma nada para el desayuno (17),Hay mucho gente no quiere desayuno,,2,False,"Partial content retained (ed=6, ov=0.40)"
+38004-2A,38004,2A,1,Quiero cortarme el pelo (7),Quiero cortarme el pelo,,4,False,Exact reproduction after normalization
+38004-2A,38004,2A,2,El libro está en la mesa (7),El libro está en la mesa,,4,False,Exact reproduction after normalization
+38004-2A,38004,2A,3,El carro lo tiene Pedro (8),El carro tiene Pedro,,4,False,"Single-token deviation, meaning intact (ov=1.00)"
+38004-2A,38004,2A,4,El se ducha cada mañana (9),El se ducha cada mañana,,4,False,Exact reproduction after normalization
+38004-2A,38004,2A,5,¿Qué dice usted que va a hacer hoy? (9),¿Qué dices usted vas hacer hoy?,,2,False,"Partial content retained (ed=4, ov=0.50)"
+38004-2A,38004,2A,6,Dudo que sepa manejar muy bien (10),Dudo que sepa manejar muy bien,,4,False,Exact reproduction after normalization
+38004-2A,38004,2A,7,Las calles de esta ciudad son muy anchas (11),Las calles de esta ciudad es muy anchas,,4,False,"Single-token deviation, meaning intact (ov=1.00)"
+38004-2A,38004,2A,8,Puede que llueva mañana todo el día (12),Pueda que llueva mañana todo día,,4,False,Two-token deviation consistent with disfluency (ov=0.80)
+38004-2A,38004,2A,9,Las casas son muy bonitas pero caras (12),Las casas son muy bonitas para caras,,4,False,"Single-token deviation, meaning intact (ov=1.00)"
+38004-2A,38004,2A,10,Me gustan las películas que acaban bien (12),Mis gus..Me gustas las películas que cada bien,,2,False,"Partial content retained (ed=4, ov=0.50)"
+38004-2A,38004,2A,11,El chico con el que yo salgo es español (13),El chico con esolago(es yo algo?) es español,,2,True,"Ambiguous 2/3 boundary — conservatively scored 2 (ed=3, ov=0.67)"
+38004-2A,38004,2A,12,Después de cenar me fui a dormir tranquilo (13),Después de cenar fui a dormir tranquilo,,4,False,"Single-token deviation, meaning intact (ov=1.00)"
+38004-2A,38004,2A,13,Quiero una casa en la que vivan mis animales (14),Queda una ca..Quiere una casa en queda mis animales...mis animales quedan,,2,False,"Partial content retained (ed=8, ov=0.50)"
+38004-2A,38004,2A,14,A nosotros nos fascinan las fiestas grandiosas (14),A nosotros fascinmas festivales,,0,False,"No meaning preserved (ed=5, ov=0.00)"
+38004-2A,38004,2A,15,Ella sólo bebe cerveza y no come nada (15),Ella sólo cerveza y como nada,,2,False,"Partial content retained (ed=3, ov=0.60)"
+38004-2A,38004,2A,16,Me gustaría que el precio de las casas bajara (15),Me gustaría que los precios de la casa bajara,,2,False,"Partial content retained (ed=4, ov=0.50)"
+38004-2A,38004,2A,17,Cruza a la derecha y después sigue todo recto (15),Sigue a la derecha y cruzo a la directo..y sique a la directo,,2,False,"Partial response, some content present (ov=0.33)"
+38004-2A,38004,2A,18,Ella ha terminado de pintar su apartamento (15),Ella se terminar pintar su apartamento,,2,True,"Ambiguous 2/3 boundary — conservatively scored 2 (ed=3, ov=0.67)"
+38004-2A,38004,2A,19,Me gustaría que empezara a hacer más calor pronto (15),Me gustaría hacer..xx calores pronto,,2,False,"Partial content retained (ed=6, ov=0.40)"
+38004-2A,38004,2A,20,El niño al que se le murió el gato está triste (16),El niño que se murió su gato es triste,,3,False,"High content retention despite structural deviation (ed=4, ov=1.00)"
+38004-2A,38004,2A,21,Una amiga mía cuida a los niños de mi vecino (16),Una amiga mía cuidado a los vecinos,,2,False,"Partial content retained (ed=5, ov=0.40)"
+38004-2A,38004,2A,22,El gato que era negro fue perseguido por el perro (16),El gato que es negro... [cough]...,,2,False,"Partial content retained (ed=6, ov=0.50)"
+38004-2A,38004,2A,23,Antes de poder salir él tiene que limpiar su cuarto (16),Antes de salir tienes xxx cu-cuarto,,2,False,"Partial response, some content present (ov=0.33)"
+38004-2A,38004,2A,24,La cantidad de personas que fuman ha disminuido (17),La cantidad de personas que fu-han fumado se distruy...,,2,False,"Partial content retained (ed=4, ov=0.50)"
+38004-2A,38004,2A,25,Después de llegar a casa del trabajo tomé la cena (17),Después de llegar a-de trabajo cena a mi casa,,2,False,"Partial content retained (ed=7, ov=0.83)"
+38004-2A,38004,2A,26,El ladrón al que atrapó la policía era famoso (17),La ladrón que atropó la policía es famoso,,2,True,"Ambiguous 2/3 boundary — conservatively scored 2 (ed=4, ov=0.75)"
+38004-2A,38004,2A,27,Le pedí a un amigo que me ayudara con la tarea (17),Le pedí un amigo que me ayuda con la tarea,,3,False,"Near-accurate, high content retention (ov=0.75)"
+38004-2A,38004,2A,28,El examen no fue tan difícil como me habían dicho (17),El examen no ..a..va a..fue a tan difícil,,2,False,"Partial content retained (ed=7, ov=0.60)"
+38004-2A,38004,2A,29,¿Serías tan amable de darme el libro que está en la mesa? (17),Sales de donde está mi libro en está mesa,,2,False,"Partial response, some content present (ov=0.33)"
+38004-2A,38004,2A,30,Hay mucha gente que no toma nada para el desayuno (17),Hay mucha gente que no toma tiempo para desayuno,,4,False,Two-token deviation consistent with disfluency (ov=0.80)
+38006-2A,38006,2A,1,Quiero cortarme el pelo (7),Quiero cortarme mi pelo,,4,False,"Single-token deviation, meaning intact (ov=1.00)"
+38006-2A,38006,2A,2,El libro está en la mesa (7),El libro [pause] está en la mesa,,4,False,Exact reproduction after normalization
+38006-2A,38006,2A,3,El carro lo tiene Pedro (8),E-[gibberish] perro,,0,False,"No meaning preserved (ed=5, ov=0.00)"
+38006-2A,38006,2A,4,El se ducha cada mañana (9),El se lucha cada mañana,,3,False,Morphological variant 'ducha' → 'lucha'
+38006-2A,38006,2A,5,¿Qué dice usted que va a hacer hoy? (9),¿Qué [gibberish] que vas estoy?,,0,False,"No meaning preserved (ed=6, ov=0.00)"
+38006-2A,38006,2A,6,Dudo que sepa manejar muy bien (10),Dudo que sepa ma-mastar tan bien (tambien?),,2,True,"Ambiguous 2/3 boundary — conservatively scored 2 (ed=3, ov=0.75)"
+38006-2A,38006,2A,7,Las calles de esta ciudad son muy anchas (11),Las calles..es-[gibberish]...,,0,False,"No meaning preserved (ed=7, ov=0.00)"
+38006-2A,38006,2A,8,Puede que llueva mañana todo el día (12),Puede xxx mañana de todo día,,3,False,"High content retention despite structural deviation (ed=4, ov=0.80)"
+38006-2A,38006,2A,9,Las casas son muy bonitas pero caras (12),A las casa es mu-son bonitas,,2,False,"Partial response, some content present (ov=0.33)"
+38006-2A,38006,2A,10,Me gustan las películas que acaban bien (12),Me gusta las películas que x bien,,3,False,"Near-accurate, limited omission (ov=0.50)"
+38006-2A,38006,2A,11,El chico con el que yo salgo es español (13),El chico con es el algo (xxx?) es español,,2,False,"Partial content retained (ed=4, ov=0.67)"
+38006-2A,38006,2A,12,Después de cenar me fui a dormir tranquilo (13),Después de fenar mi fui a tranquilo,,2,False,"Partial content retained (ed=3, ov=0.60)"
+38006-2A,38006,2A,13,Quiero una casa en la que vivan mis animales (14),Quienen que en el casa ...muchos animales,,2,False,"Partial content retained (ed=7, ov=0.50)"
+38006-2A,38006,2A,14,A nosotros nos fascinan las fiestas grandiosas (14),A nosotros fanimos [pause] fiestas grandiosas,,2,True,"Ambiguous 2/3 boundary — conservatively scored 2 (ed=3, ov=0.67)"
+38006-2A,38006,2A,15,Ella sólo bebe cerveza y no come nada (15),Ella bebidas cerviamos y no comidas,,0,False,"No meaning preserved (ed=5, ov=0.00)"
+38006-2A,38006,2A,16,Me gustaría que el precio de las casas bajara (15),Me gustaría ser..ella...mhh..,,2,False,"Partial response, some content present (ov=0.25)"
+38006-2A,38006,2A,17,Cruza a la derecha y después sigue todo recto (15),Cruze a la derecha de siguelo,,1,False,Minimal/fragmentary meaning only (ov=0.17)
+38006-2A,38006,2A,18,Ella ha terminado de pintar su apartamento (15),Ella terminado pintar a sus apartmento,,2,False,"Partial content retained (ed=5, ov=0.67)"
+38006-2A,38006,2A,19,Me gustaría que empezara a hacer más calor pronto (15),Me gustaría se..[pause] xxx pronto,,2,False,"Partial content retained (ed=6, ov=0.40)"
+38006-2A,38006,2A,20,El niño al que se le murió el gato está triste (16),El niño se murió el gato es muy triste,,2,False,"Partial content retained (ed=5, ov=1.00)"
+38006-2A,38006,2A,21,Una amiga mía cuida a los niños de mi vecino (16),Una mía amiga cuidado a sus niños,,2,False,"Partial content retained (ed=7, ov=0.60)"
+38006-2A,38006,2A,22,El gato que era negro fue perseguido por el perro (16),El gato-el gato quien era el nego de perro,,2,False,"Partial content retained (ed=7, ov=0.50)"
+38006-2A,38006,2A,23,Antes de poder salir él tiene que limpiar su cuarto (16),Antes de podai e salir..[pause] antes de xxx,,2,False,"Partial response, some content present (ov=0.33)"
+38006-2A,38006,2A,24,La cantidad de personas que fuman ha disminuido (17),A la cantan... [pause] muy a xxx,,0,False,"No meaning preserved (ed=8, ov=0.00)"
+38006-2A,38006,2A,25,Después de llegar a casa del trabajo tomé la cena (17),Después de llegar [pause] al trabajo...,,2,False,"Partial content retained (ed=6, ov=0.50)"
+38006-2A,38006,2A,26,El ladrón al que atrapó la policía era famoso (17),X- ladróna(?)de policio que es famoso,,2,False,"Partial response, some content present (ov=0.25)"
+38006-2A,38006,2A,27,Le pedí a un amigo que me ayudara con la tarea (17),Que ped-x una amigo [pause] a su tarea,,2,False,"Partial content retained (ed=9, ov=0.50)"
+38006-2A,38006,2A,28,El examen no fue tan difícil como me habían dicho (17),El examen no difícil.. [pause]... [gibberish],,2,False,"Partial content retained (ed=6, ov=0.40)"
+38006-2A,38006,2A,29,¿Serías tan amable de darme el libro que está en la mesa? (17),El libro que está en la mesa,,2,False,"Partial response, some content present (ov=0.33)"
+38006-2A,38006,2A,30,Hay mucha gente que no toma nada para el desayuno (17),A mucha gente xxx...,,2,False,"Partial content retained (ed=8, ov=0.40)"

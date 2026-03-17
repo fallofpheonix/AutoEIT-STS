@@ -1,0 +1,10 @@
+sheet_name,participant_id,version,sentence_id,stimulus,transcription,human_score,auto_score,rationale
+38001-1A,38001,1A,9,Las casas son muy bonitas pero caras (12),Las casas son muy bonitas pero muy cadas,,2,"Ambiguous 2/3 boundary — conservatively scored 2 (ed=2, ov=0.67)"
+38001-1A,38001,1A,18,Ella ha terminado de pintar su apartamento (15),Ella ha terminado pintando su apartamento,,2,"Ambiguous 2/3 boundary — conservatively scored 2 (ed=2, ov=0.67)"
+38001-1A,38001,1A,28,El examen no fue tan difícil como me habían dicho (17),El examen no fue tan dificil como me decían,,2,"Ambiguous 2/3 boundary — conservatively scored 2 (ed=2, ov=0.60)"
+38002-2A,38002,2A,3,El carro lo tiene Pedro (8),El carro tiene pelo.,,2,"Ambiguous 2/3 boundary — conservatively scored 2 (ed=2, ov=0.67)"
+38004-2A,38004,2A,11,El chico con el que yo salgo es español (13),El chico con esolago(es yo algo?) es español,,2,"Ambiguous 2/3 boundary — conservatively scored 2 (ed=3, ov=0.67)"
+38004-2A,38004,2A,18,Ella ha terminado de pintar su apartamento (15),Ella se terminar pintar su apartamento,,2,"Ambiguous 2/3 boundary — conservatively scored 2 (ed=3, ov=0.67)"
+38004-2A,38004,2A,26,El ladrón al que atrapó la policía era famoso (17),La ladrón que atropó la policía es famoso,,2,"Ambiguous 2/3 boundary — conservatively scored 2 (ed=4, ov=0.75)"
+38006-2A,38006,2A,6,Dudo que sepa manejar muy bien (10),Dudo que sepa ma-mastar tan bien (tambien?),,2,"Ambiguous 2/3 boundary — conservatively scored 2 (ed=3, ov=0.75)"
+38006-2A,38006,2A,14,A nosotros nos fascinan las fiestas grandiosas (14),A nosotros fanimos [pause] fiestas grandiosas,,2,"Ambiguous 2/3 boundary — conservatively scored 2 (ed=3, ov=0.67)"
