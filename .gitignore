@@ -18,3 +18,54 @@ input/workbooks/*.xlsx
 .env
 *.DS_Store
 AutoEIT-STS-sync/
+# OS/editor
+.DS_Store
+.idea/
+.vscode/
+# Python
+*.pyo
+.coverage
+htmlcov/
+venv/
+# Node/JS
+node_modules/
+coverage/
+.env.*
+!.env.example
+# Dart/Flutter
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+# Local data, models, and generated artifacts
+*.db
+*.db.bak
+*.sqlite
+*.sqlite3
+*.log
+*.jsonl
+*.csv.tmp
+out/
+out_old/
+output/
+outputs/
+artifacts/runs/
+artifacts/checkpoints/
+models/**/*.pt
+models/**/*.pth
+models/**/*.bin
+*.pt
+*.pth
+*.ckpt
+*.onnx
+*.mp3
+*.wav
+*.m4a
+# Native build products
+*.o
+*.a
+*.so
+*.dylib
+*.exe
+bench/bench_*
+tests/test_*
